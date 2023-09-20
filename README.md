@@ -23,3 +23,11 @@ python3 predict_price.py
 ```
 
 Enter mileage and get a predicted price
+
+### Calculates the Precision
+
+```
+python3 r_squared.py [data file]
+```
+
+Use R-squared to measure algorithmic precision

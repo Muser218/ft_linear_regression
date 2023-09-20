@@ -19,8 +19,7 @@ y = data['price'].values
 learning_rate = 0.001
 iterations = 10000
 m = len(y)
-# theta = np.zeros(2)
-theta = np.array([1.0, 1.0])
+theta = np.zeros(2)
 
 # Data normalization
 X_mean = np.mean(X)
@@ -36,8 +35,8 @@ for _ in range(iterations):
     error = y_pred - y
 
     # Updating parameters
-    gradient_0 = (1/m) * np.sum(error)
-    gradient_1 = (1/m) * np.sum(error * X)
+    gradient_0 = np.sum(error) / m
+    gradient_1 = np.sum(error * X) / m
     theta[0] -= learning_rate * gradient_0
     theta[1] -= learning_rate * gradient_1
 
@@ -48,19 +47,20 @@ for _ in range(iterations):
     #    print(f'epoch: {_}, theta0: {theta[0]}, theta1: {theta[1]}')
 
 # Restore to original scale with inverse normalization
-theta0_restored = theta[0] - theta[1] * X_mean / X_std
-theta1_restored = theta[1] / X_std
+theta[0] = theta[0] - theta[1] * X_mean / X_std
+theta[1] = theta[1] / X_std
+X = X*X_std + X_mean
 
 # Restored theta0 and theta1 outputs
-print(f"theta0: {theta0_restored}")
-print(f"theta1: {theta1_restored}")
+print(f"theta0: {theta[0]}")
+print(f"theta1: {theta[1]}")
 with open('theta.csv', 'w') as file:
-    file.write(f"{theta0_restored},{theta1_restored}\n")
+    file.write(f"{theta[0]},{theta[1]}\n")
 print("Save the values of theta0 and theta1 to the theta.csv file.")
 
 # 5. Visualize results
-plt.scatter(X*X_std + X_mean, y, label='Real Price')
-plt.plot(X*X_std + X_mean, (theta[0] + theta[1] * X),
+plt.scatter(X, y, label='Real Price')
+plt.plot(X, (theta[0] + theta[1] * X),
         color='red', label='Predict Price')
 plt.xlabel('(km)')
 plt.ylabel('Price')

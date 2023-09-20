@@ -58,12 +58,12 @@ with open('theta.csv', 'w') as file:
     file.write(f"{theta0_restored},{theta1_restored}\n")
 print("Save the values of theta0 and theta1 to the theta.csv file.")
 
-# 5. Visualize your results
-# plt.scatter(X*X_std + X_mean, y, label='Real Price')
-# plt.plot(X*X_std + X_mean, (theta[0] + theta[1] * X),
-#         color='red', label='Predict Price')
-# plt.xlabel('(km)')
-# plt.ylabel('Price')
-# plt.legend()
-# plt.title('Predict Car Price')
-# plt.show()
+# 5. Visualize results
+plt.scatter(X*X_std + X_mean, y, label='Real Price')
+plt.plot(X*X_std + X_mean, (theta[0] + theta[1] * X),
+        color='red', label='Predict Price')
+plt.xlabel('(km)')
+plt.ylabel('Price')
+plt.legend()
+plt.title('Predict Car Price')
+plt.show()
